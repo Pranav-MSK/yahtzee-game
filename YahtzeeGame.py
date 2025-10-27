@@ -4,8 +4,7 @@ import random
 
 class Yahtzee:
     UPPER_CATEGORIES = ["Ones", "Twos", "Threes", "Fours", "Fives", "Sixes"]
-    LOWER_CATEGORIES = ["Three of a Kind", "Four of a Kind", "Full House",
-                        "Small Straight", "Large Straight", "Yahtzee", "Chance"]
+    LOWER_CATEGORIES = ["Three of a Kind", "Four of a Kind", "Full House", "Small Straight", "Large Straight", "Yahtzee", "Chance"]
 
     def __init__(self, root):
         self.root = root
@@ -36,8 +35,7 @@ class Yahtzee:
     # ---------------- GUI LAYOUT ----------------
     def create_layout(self):
         # Title
-        title = tk.Label(self.root, text="YAHTZEE DELUXE", font=("Arial Black", 22),
-                         bg=self.bg_main, fg=self.accent)
+        title = tk.Label(self.root, text="YAHTZEE MINI GAME", font=("Arial Black", 22), bg=self.bg_main, fg=self.accent)
         title.pack(pady=10)
 
         # Top container (dice + roll area)
@@ -89,8 +87,7 @@ class Yahtzee:
             self.score_buttons[cat] = btn
 
         # Total
-        self.total_label = tk.Label(scorecard_frame, text="Total Score: 0",
-                                    font=("Arial Black", 14), bg=self.bg_panel, fg=self.accent)
+        self.total_label = tk.Label(scorecard_frame, text="Total Score: 0", font=("Arial Black", 14), bg=self.bg_panel, fg=self.accent)
         self.total_label.pack(pady=5)
 
         # Reset
@@ -204,12 +201,20 @@ class Yahtzee:
     def show_rules_popup(self):
         rules = (
             "🎲 How to Play Yahtzee\n\n"
-            "• Objective: Score the highest total across 13 rounds.\n"
-            "• Each round: Roll up to 3 times.\n"
-            "• You can hold dice between rolls.\n"
-            "• After rolling, choose a category on the scorecard.\n"
-            "• Each category can be used only once.\n"
-            "\n💡 Tip: Save high rolls for the best categories!"
+            "• Objective: Score the highest total after 13 rounds.\n"
+            "• Each round: Roll five dice up to three times.\n"
+            "• You may hold (keep) any dice between rolls to aim for specific combos.\n"
+            "• After rolling, select one empty category on the scorecard to record your score.\n"
+            "• Each category can only be used once — even if the score is 0.\n\n"
+            "🏆 Scoring Highlights:\n"
+            "• Yahtzee (five of a kind): 50 points.\n"
+            "• Large Straight (1–5 or 2–6): 40 points.\n"
+            "• Small Straight (four in a row): 30 points.\n"
+            "• Full House (3 of one + 2 of another): 25 points.\n"
+            "• Three/Four of a Kind: Sum of all dice.\n"
+            "• Upper Section (Ones–Sixes): Sum of dice showing that number.\n"
+            "• Chance: Total of all dice, any combination.\n\n"
+            "💡 Tip: Plan ahead! Use lower-value rolls strategically and save the best rolls for high-scoring categories."
         )
         messagebox.showinfo("Game Rules", rules)
 
