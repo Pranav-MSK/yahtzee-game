@@ -199,14 +199,55 @@ class Yahtzee:
 
     # ---------------- RULES POPUP ----------------
     def show_rules_popup(self):
+        # Create a new top-level popup window
+        popup = tk.Toplevel(self.root)
+        popup.title("🎲 How to Play Yahtzee")
+        popup.configure(bg=self.bg_panel)
+        popup.geometry("520x500")
+        popup.resizable(False, False)
+
+        # Header
+        header = tk.Label(
+            popup,
+            text="🎲 How to Play Yahtzee",
+            font=("Arial Black", 18),
+            bg=self.bg_panel,
+            fg=self.accent
+        )
+        header.pack(pady=(15, 10))
+
+        # Scrollable frame
+        text_frame = tk.Frame(popup, bg=self.bg_panel)
+        text_frame.pack(fill="both", expand=True, padx=15, pady=5)
+
+        # Scrollbar
+        scrollbar = tk.Scrollbar(text_frame)
+        scrollbar.pack(side="right", fill="y")
+
+        # Text widget
+        text_widget = tk.Text(
+            text_frame,
+            wrap="word",
+            font=("Arial", 12),
+            bg=self.bg_main,
+            fg=self.text_light,
+            padx=15,
+            pady=10,
+            relief="flat",
+            yscrollcommand=scrollbar.set
+        )
+        text_widget.pack(fill="both", expand=True)
+        scrollbar.config(command=text_widget.yview)
+
+        # Rules text
         rules = (
-            "🎲 How to Play Yahtzee\n\n"
+            "🎲 HOW TO PLAY YAHTZEE\n\n"
             "• Objective: Score the highest total after 13 rounds.\n"
             "• Each round: Roll five dice up to three times.\n"
             "• You may hold (keep) any dice between rolls to aim for specific combos.\n"
             "• After rolling, select one empty category on the scorecard to record your score.\n"
             "• Each category can only be used once — even if the score is 0.\n\n"
-            "🏆 Scoring Highlights:\n"
+            "🏆 SCORING HIGHLIGHTS:\n\n"
             "• Yahtzee (five of a kind): 50 points.\n"
             "• Large Straight (1–5 or 2–6): 40 points.\n"
             "• Small Straight (four in a row): 30 points.\n"
@@ -214,9 +255,30 @@ class Yahtzee:
             "• Three/Four of a Kind: Sum of all dice.\n"
             "• Upper Section (Ones–Sixes): Sum of dice showing that number.\n"
             "• Chance: Total of all dice, any combination.\n\n"
-            "💡 Tip: Plan ahead! Use lower-value rolls strategically and save the best rolls for high-scoring categories."
+            "💡 TIP: Plan ahead! Use lower-value rolls strategically and save your best rolls for high-scoring categories."
         )
-        messagebox.showinfo("Game Rules", rules)
+
+        text_widget.insert("1.0", rules)
+        text_widget.config(state="disabled")  # make text read-only
+
+        # Close button
+        close_btn = tk.Button(
+            popup,
+            text="Close",
+            font=("Arial", 12, "bold"),
+            bg=self.accent,
+            fg="black",
+            padx=10,
+            pady=5,
+            command=popup.destroy
+        )
+        close_btn.pack(pady=10)
+
+        # Center popup relative to main window
+        popup.transient(self.root)
+        popup.grab_set()
+        self.root.wait_window(popup)
+
 
 # ---------------- MAIN ----------------
 if __name__ == "__main__":
