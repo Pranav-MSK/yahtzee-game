@@ -2,6 +2,15 @@ import tkinter as tk
 from tkinter import messagebox
 import random
 
+# --- Window Centering Helper ---
+def center_window(window, width, height):
+    """Centers a Tkinter window on the screen."""
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+    x = int((screen_width / 2) - (width / 2))
+    y = int((screen_height / 2) - (height / 2))
+    window.geometry(f"{width}x{height}+{x}+{y}")
+
 class Yahtzee:
     UPPER_CATEGORIES = ["Ones", "Twos", "Threes", "Fours", "Fives", "Sixes"]
     LOWER_CATEGORIES = ["Three of a Kind", "Four of a Kind", "Full House", "Small Straight", "Large Straight", "Yahtzee", "Chance"]
@@ -9,6 +18,7 @@ class Yahtzee:
     def __init__(self, root):
         self.root = root
         self.root.title("🎲 Yahtzee Mini Game")
+        center_window(self.root, 800, 900)
 
         # Color theme
         self.bg_main = "#1e1e2f"
@@ -68,7 +78,7 @@ class Yahtzee:
 
         # Scorecard section
         scorecard_frame = tk.Frame(self.root, bg=self.bg_panel, bd=2, relief="ridge")
-        scorecard_frame.pack(pady=15, fill="x", padx=20)
+        scorecard_frame.pack(pady=5, fill="x", padx=20)
 
         header = tk.Label(scorecard_frame, text="SCORECARD", font=("Arial Black", 16),
                           bg=self.bg_panel, fg=self.accent)
@@ -203,8 +213,8 @@ class Yahtzee:
         popup = tk.Toplevel(self.root)
         popup.title("🎲 How to Play Yahtzee")
         popup.configure(bg=self.bg_panel)
-        popup.geometry("520x500")
         popup.resizable(False, False)
+        center_window(popup, 520, 500)
 
         # Header
         header = tk.Label(
@@ -285,3 +295,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     game = Yahtzee(root)
     root.mainloop()
+    
